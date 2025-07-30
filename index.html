@@ -4,344 +4,834 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Plant di Herb Man and mek it grow</title>
-  <!-- Skip link for accessibility -->
-  <!-- Skip link for accessibility -->
-  <style>
-    .skip-link {
-      position: absolute;
-      left: -9999px;
-    }
-    .skip-link:focus {
-      left: 0;
-      top: 0;
-    }
-  </style>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Karla:wght@400;600&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Your complete guide to caring for houseplants with personality - from Couch Creeper Queen to Misty Midnights">
+  
+  <!-- Preload critical fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Karla:wght@400;600&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --soft-green: #a8d5ba;
+      --soft-green: #6b9080;
+      --soft-green-light: #a8d5ba;
       --beige: #f5f1e8;
       --light-brown: #d8c3a5;
       --bg: #fdfbf7;
-      --text: #333;
-      --focus: #ffa726;
+      --card-bg: #ffffff;
+      --text: #2d3748;
+      --text-light: #4a5568;
+      --focus: #f6ad55;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --shadow-hover: rgba(0, 0, 0, 0.15);
+      --border-radius: 16px;
+      --border-radius-sm: 8px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2rem;
+      --spacing-xl: 3rem;
     }
-    /* KEEP box-sizing reset, but remove margin reset here */
-    *, *::before, *::after {
+
+    * {
       box-sizing: border-box;
-      /* margin & padding will be reset only where needed below */
     }
-    
-    /* restore default spacing for key elements */
-    h2 {
-      margin-bottom: 0.5em;
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
     }
-    p {
-      margin-bottom: 1em;
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--bg) 0%, #f8f6f0 100%);
+      color: var(--text);
+      line-height: 1.6;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    .green-routine, .drama-files {
-      margin-bottom: 1.5em;
+
+    /* Skip link for accessibility */
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 1000;
+      background: var(--focus);
+      color: white;
+      padding: var(--spacing-sm);
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 0 0 var(--border-radius-sm) 0;
     }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; font-family: 'Quicksand', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 0 10px 20px; }
-    nav { background: var(--beige); box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-    nav ul { display: flex; overflow-x: auto; list-style: none; padding: 10px; }
-    nav ul li {
-      flex: 0 0 auto;
+
+    .skip-link:focus {
+      left: 0;
     }
-    nav a { display: block; margin-right: 15px; text-decoration: none; font-weight: 600; color: var(--text); white-space: nowrap; }
-    nav a:focus { outline: 2px solid var(--focus); border-radius: 4px; }
-    main { padding-top: 10px; }
-    .plant-card { background: var(--bg); border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 20px auto; padding: 15px; max-width: 800px; transition: transform 0.2s; }
-    .plant-card:hover { transform: translateY(-3px); }
-    .plant-header h2 { font-family: 'Comic Neue', cursive; font-size: 1.75rem; color: var(--soft-green); margin-bottom: 4px; line-height: 1.2; }
-    .plant-header .nickname { font-size: 1.1rem; color: var(--light-brown); font-style: italic; }
-    .personality { margin: 12px 0; }
-    .image-container img { width: 100%; height: auto; border-radius: 8px; }
-    .caption { font-family: 'Karla', sans-serif; font-size: 0.85rem; margin-top: 6px; color: var(--text); }
-    .green-routine, .drama-files { margin: 16px 0; }
-    .green-routine h3, .drama-files h3 { display: flex; align-items: center; font-size: 1.3rem; margin-bottom: 8px; }
-    .green-routine h3::before { content: '🧼'; margin-right: 8px; }
-    .drama-files h3::before { content: '🎭'; margin-right: 8px; }
-    .green-routine ul { list-style: disc inside; padding-left: 8px; }
-    .green-routine li { margin-bottom: 6px; }
-    .accordion button { 
-      width: 100%; text-align: left; padding: 10px 0; font-weight: 600; background: none; border: none; position: relative; font-size: 1rem; cursor: pointer; 
-      border-top: 1px solid var(--light-brown);
-      padding-top: 12px;  /* give a little breathing room above each question */
+
+    /* Header and Navigation */
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(216, 195, 165, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
     }
-    .accordion button::after { content: '▼'; position: absolute; right: 0; transition: transform 0.2s; }
-    .accordion button[aria-expanded="true"]::after { transform: rotate(180deg); }
-    .accordion button:focus { outline: 2px solid var(--focus); }
-    .panel { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-    .panel p { padding: 10px 0; }
-    @media (min-width: 600px) { body { padding: 0 20px 40px; } }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing-sm);
+    }
+
+    .site-title {
+      font-family: 'Comic Neue', cursive;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: var(--soft-green);
+      margin: 0 0 var(--spacing-sm) 0;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    nav {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: var(--spacing-xs);
+      min-width: max-content;
+    }
+
+    nav li {
+      flex-shrink: 0;
+    }
+
+    nav a {
+      display: block;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--text);
+      background: var(--beige);
+      border-radius: 25px;
+      white-space: nowrap;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      border: 2px solid transparent;
+    }
+
+    nav a:hover {
+      background: var(--soft-green-light);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    nav a:focus {
+      outline: none;
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px rgba(246, 173, 85, 0.3);
+    }
+
+    /* Main Content */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing-lg) var(--spacing-sm);
+    }
+
+    /* Plant Cards */
+    .plant-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 25px var(--shadow);
+      margin-bottom: var(--spacing-xl);
+      overflow: hidden;
+      transition: var(--transition);
+      border: 1px solid rgba(216, 195, 165, 0.2);
+    }
+
+    .plant-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 40px var(--shadow-hover);
+    }
+
+    .plant-card-content {
+      padding: var(--spacing-lg);
+    }
+
+    /* Plant Header */
+    .plant-header {
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .plant-header h2 {
+      font-family: 'Comic Neue', cursive;
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      color: var(--soft-green);
+      margin: 0 0 var(--spacing-xs) 0;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .nickname {
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      color: var(--light-brown);
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    /* Personality Section */
+    .personality {
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .personality p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text-light);
+      margin: 0;
+    }
+
+    /* Image Container */
+    .image-container {
+      margin: var(--spacing-lg) 0;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .image-container:hover img {
+      transform: scale(1.02);
+    }
+
+    .caption {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      text-align: center;
+      margin-top: var(--spacing-sm);
+      color: var(--text-light);
+      padding: 0 var(--spacing-sm);
+    }
+
+    /* Routine and Drama Sections */
+    .section-header {
+      display: flex;
+      align-items: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-md);
+      color: var(--soft-green);
+    }
+
+    .section-header::before {
+      font-size: 1.5rem;
+      margin-right: var(--spacing-sm);
+    }
+
+    .green-routine {
+      margin-bottom: var(--spacing-xl);
+      padding: var(--spacing-lg);
+      background: linear-gradient(135deg, rgba(168, 213, 186, 0.1) 0%, rgba(245, 241, 232, 0.1) 100%);
+      border-radius: var(--border-radius);
+      border-left: 4px solid var(--soft-green-light);
+    }
+
+    .green-routine .section-header::before {
+      content: '🧼';
+    }
+
+    .green-routine ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .green-routine li {
+      position: relative;
+      padding: var(--spacing-sm) 0 var(--spacing-sm) var(--spacing-lg);
+      margin-bottom: var(--spacing-sm);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .green-routine li::before {
+      content: '🌱';
+      position: absolute;
+      left: 0;
+      top: var(--spacing-sm);
+    }
+
+    .green-routine li strong {
+      color: var(--soft-green);
+      font-weight: 600;
+    }
+
+    /* Drama Files */
+    .drama-files {
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .drama-files .section-header::before {
+      content: '🎭';
+    }
+
+    /* Accordion */
+    .accordion {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      border: 1px solid rgba(216, 195, 165, 0.3);
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid rgba(216, 195, 165, 0.2);
+    }
+
+    .accordion-item:last-child {
+      border-bottom: none;
+    }
+
+    .accordion button {
+      width: 100%;
+      text-align: left;
+      padding: var(--spacing-md);
+      font-weight: 600;
+      background: rgba(245, 241, 232, 0.3);
+      border: none;
+      position: relative;
+      font-size: 1rem;
+      cursor: pointer;
+      color: var(--text);
+      transition: var(--transition);
+      line-height: 1.5;
+    }
+
+    .accordion button:hover {
+      background: rgba(168, 213, 186, 0.2);
+    }
+
+    .accordion button:focus {
+      outline: none;
+      background: rgba(168, 213, 186, 0.3);
+      box-shadow: inset 0 0 0 2px var(--focus);
+    }
+
+    .accordion button::after {
+      content: '▼';
+      position: absolute;
+      right: var(--spacing-md);
+      top: 50%;
+      transform: translateY(-50%);
+      transition: var(--transition);
+      font-size: 0.9rem;
+      color: var(--soft-green);
+    }
+
+    .accordion button[aria-expanded="true"] {
+      background: rgba(168, 213, 186, 0.2);
+    }
+
+    .accordion button[aria-expanded="true"]::after {
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    .panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: white;
+    }
+
+    .panel p {
+      padding: var(--spacing-md);
+      margin: 0;
+      color: var(--text-light);
+      line-height: 1.6;
+      border-left: 3px solid var(--soft-green-light);
+      background: rgba(168, 213, 186, 0.05);
+    }
+
+    /* Loading Animation */
+    .plant-card {
+      animation: fadeInUp 0.6s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .plant-card:nth-child(1) { animation-delay: 0.1s; }
+    .plant-card:nth-child(2) { animation-delay: 0.2s; }
+    .plant-card:nth-child(3) { animation-delay: 0.3s; }
+    .plant-card:nth-child(4) { animation-delay: 0.4s; }
+    .plant-card:nth-child(5) { animation-delay: 0.5s; }
+    .plant-card:nth-child(6) { animation-delay: 0.6s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (min-width: 768px) {
+      .header-content {
+        padding: var(--spacing-md) var(--spacing-lg);
+      }
+
+      .site-title {
+        margin-bottom: var(--spacing-md);
+      }
+
+      nav ul {
+        justify-content: center;
+        gap: var(--spacing-sm);
+      }
+
+      nav a {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 1rem;
+      }
+
+      main {
+        padding: var(--spacing-xl) var(--spacing-lg);
+      }
+
+      .plant-card-content {
+        padding: var(--spacing-xl);
+      }
+
+      .image-container {
+        margin: var(--spacing-xl) 0;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .plant-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-xl);
+        align-items: start;
+      }
+
+      .plant-card-content {
+        padding: var(--spacing-xl);
+      }
+
+      .image-section {
+        padding: var(--spacing-xl);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .image-container {
+        margin: 0;
+      }
+    }
+
+    /* Dark mode support (continued) */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a202c;
+        --card-bg: #2d3748;
+        --text: #e2e8f0;
+        --text-light: #cbd5e0;
+        --beige: #4a5568;
+        --shadow: rgba(0, 0, 0, 0.3);
+        --shadow-hover: rgba(0, 0, 0, 0.5);
+      }
+
+      body {
+        background: linear-gradient(135deg, var(--bg) 0%, #2a3441 100%);
+      }
+
+      header {
+        background: rgba(45, 55, 72, 0.95);
+        border-bottom: 1px solid rgba(107, 144, 128, 0.2);
+      }
+
+      .accordion button {
+        background: rgba(74, 85, 104, 0.3);
+        color: var(--text);
+      }
+
+      .accordion button:hover {
+        background: rgba(107, 144, 128, 0.2);
+      }
+
+      .panel p {
+        background: rgba(107, 144, 128, 0.1);
+        border-left-color: var(--soft-green);
+      }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* High contrast mode */
+    @media (prefers-contrast: high) {
+      :root {
+        --shadow: rgba(0, 0, 0, 0.5);
+        --shadow-hover: rgba(0, 0, 0, 0.7);
+      }
+
+      .plant-card {
+        border: 2px solid var(--soft-green);
+      }
+
+      nav a {
+        border: 2px solid var(--soft-green);
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      * {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+      }
+
+      header {
+        position: static;
+        box-shadow: none;
+        border-bottom: 2px solid black;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .plant-card {
+        break-inside: avoid;
+        margin-bottom: 2rem;
+        border: 1px solid black;
+      }
+
+      .accordion button::after {
+        display: none;
+      }
+
+      .panel {
+        max-height: none !important;
+      }
+    }
+
+    /* Focus indicators for better accessibility */
+    .plant-card:focus-within {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Smooth scrolling enhancement */
+    .plant-card {
+      scroll-margin-top: 100px;
+    }
+
+    /* Loading state */
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid var(--soft-green-light);
+      border-top-color: var(--soft-green);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to content</a>
-  <nav role="navigation">
-    <ul>
-      <li><a href="#epipremnum-marble-queen">Marble Queen</a></li>
-      <li><a href="#musa-oriental-dwarf">Banana Plant</a></li>
-      <li><a href="#bromelia-hope">Bromeliad</a></li>
-      <li><a href="#pachira-aquatica">Money Tree</a></li>
-      <li><a href="#spathiphyllum">Peace Lily</a></li>
-      <li><a href="#ctenanthe-amagris">Misty Midnights</a></li>
-    </ul>
-  </nav>
-  <main id="main">
-    <!-- Epipremnum Marble Queen -->
-    <section id="epipremnum-marble-queen" class="plant-card">
-      <header class="plant-header">
-        <h2>Epipremnum Marble Queen</h2>
-        <div class="nickname">Couch Creeper Queen 👑</div>
-      </header>
-      <div class="personality">
-        <p>Couch Creeper Queen lives for the drama of doing absolutely nothing. She reclines. She trails. She spills out of her pot like she’s fainting in slow motion. She’s the friend who’s always “on the way” but never leaves the house. Needs almost nothing to thrive and still makes your space look like a boho Pinterest board. If plants had Netflix accounts, she’d be the one poking into your profile, watching “Mushrooms: The Silent Drama” under your name and never admitting it.</p>
-      </div>
-      <figure class="image-container">
-        <img src="_CouchCreeperQueen.webp" alt="Couch Creeper Queen trailing vines">
-        <figcaption class="caption">I’m not lazy, I’m on energy-saving mode.</figcaption>
-      </figure>
-      <div class="green-routine">
-        <h3>Green Routine</h3>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  
+  <header role="banner">
+    <div class="header-content">
+      <h1 class="site-title">Plant di Herb Man and mek it grow</h1>
+      <nav role="navigation" aria-label="Plant navigation">
         <ul>
-          <li>Light: Bright, indirect light. She’s chill in low light too but won’t grow as fast.</li>
-          <li>Water: Let the top 2–3 cm of soil dry out before watering. She’s not into soggy feet.</li>
-          <li>Humidity: Totally fine in normal room vibes, but she’ll thrive if you mist once in a while.</li>
-          <li>Feeding: Toss her a little liquid fertilizer every 4–6 weeks in spring/summer. She doesn’t eat much.</li>
-          <li>Grooming: Prune leggy vines and wipe her leaves so she keeps that marble glow.</li>
+          <li><a href="#couch-creeper">Couch Creeper Queen</a></li>
+          <li><a href="#misty-midnights">Misty Midnights</a></li>
+          <li><a href="#sunshine-sally">Sunshine Sally</a></li>
+          <li><a href="#drama-queen">Drama Queen Diva</a></li>
+          <li><a href="#zen-master">Zen Master Zara</a></li>
+          <li><a href="#party-animal">Party Animal Pete</a></li>
         </ul>
-      </div>
-      <div class="drama-files">
-        <h3>The Drama Files</h3>
-        <div class="accordion">
-          <button aria-expanded="false" aria-controls="mq1">Q: The leaves are turning yellow — what does that mean?</button>
-          <div id="mq1" class="panel" aria-hidden="true"><p>A: You’ve been loving her a little too hard. That soggy soil? Yeah, she’s not into that. Let her dry out before the next drink.</p></div>
-          <button aria-expanded="false" aria-controls="mq2">Q: The tips of the leaves are dry and crispy — is that normal?</button>
-          <div id="mq2" class="panel" aria-hidden="true"><p>A: She’s thirsty or choking on your apartment’s dry vibes. Water deeper or give her a lil’ humidity boost.</p></div>
-          <button aria-expanded="false" aria-controls="mq3">Q: Why are the leaves drooping like that?</button>
-          <div id="mq3" class="panel" aria-hidden="true"><p>A: Thirsty, dramatic, but fine. It’s her version of a protest sign. Water her, she’ll forgive you by lunch.</p></div>
-          <button aria-expanded="false" aria-controls="mq4">Q: Why is it leaning toward the window?</button>
-          <div id="mq4" class="panel" aria-hidden="true"><p>A: She’s chasing the sun like it’s a crush she met at a music festival. Rotate her before she becomes a one-sided relationship.</p></div>
-          <button aria-expanded="false" aria-controls="mq5">Q: There are dark spots or patches — what’s going on?</button>
-          <div id="mq5" class="panel" aria-hidden="true"><p>A: Either sunburn from sitting too close to the window or she’s been chilling in a swampy pot. Bright indirect light + proper drainage = peace.</p></div>
-        </div>
-      </div>
-    </section>
-    <!-- Musa Oriental Dwarf -->
-    <section id="musa-oriental-dwarf" class="plant-card">
-      <header class="plant-header">
-        <h2>Musa Oriental Dwarf</h2>
-        <div class="nickname">Big Leaf Energy 🍌</div>
-      </header>
-      <div class="personality">
-        <p>Big Leaf Energy is that guest who shows up in full tropical gear to a chill house party — no one asked, but everyone’s glad he did. He’s dramatic, thirsty, and needs room to sprawl like he owns the balcony. Loves attention, hates dry air, and gets cranky if ignored for more than a day. If this plant could speak, it’d ask for a mist, a spritz of lime, and a playlist called “Jungle Beats & Self-Watering Regrets.”</p>
-      </div>
-      <figure class="image-container">
-        <img src="_BigLeafEnergy.webp" alt="Big Leaf Energy broad leaves">
-        <figcaption class="caption">Bigger leaves. Bigger feelings.</figcaption>
-      </figure>
-      <div class="green-routine">
-        <h3>Green Routine</h3>
-        <ul>
-          <li>Light: Bright indirect light, with a flirtation for morning sun. Too much direct heat = scorched drama.</li>
-          <li>Water: Keep soil moist but never soggy. He hates extremes — stay moderate like a chill DJ set.</li>
-          <li>Humidity: Yes. All of it. Mist him, steam him, make him feel like he’s in Bali.</li>
-          <li>Feeding: Twice a month in spring/summer. He eats like he’s prepping for a tropical bodybuilding competition.</li>
-          <li>Grooming: Wipe leaves gently and trim any brown drama. Big leaves, big moods.</li>
-        </ul>
-      </div>
-      <div class="drama-files">
-        <h3>The Drama Files</h3>
-        <div class="accordion">
-          <button aria-expanded="false" aria-controls="mo1">Q: The leaves are turning yellow — what does that mean?</button>
-          <div id="mo1" class="panel" aria-hidden="true"><p>A: Could be overwatering or a lack of light. He’s dramatic, not subtle. Let the soil breathe and shift him into the spotlight (indirect, of course).</p></div>
-          <button aria-expanded="false" aria-controls="mo2">Q: The tips of the leaves are dry and crispy — is that normal?</button>
-          <div id="mo2" class="panel" aria-hidden="true"><p>A: Nope, that’s him throwing shade about the humidity. Mist more often or get a humidifier. He’s tropical, remember?</p></div>
-          <button aria-expanded="false" aria-controls="mo3">Q: Why are the leaves drooping like that?</button>
-          <div id="mo3" class="panel" aria-hidden="true"><p>A: He’s parched. Or mad. Either way, water him and give him 30 minutes — he’ll be back and fabulous.</p></div>
-          <button aria-expanded="false" aria-controls="mo4">Q: Why is it leaning toward the window?</button>
-          <div id="mo4" class="panel" aria-hidden="true"><p>A: Light-chaser behavior. Rotate him every week so he doesn’t spiral into a banana-side bend.</p></div>
-          <button aria-expanded="false" aria-controls="mo5">Q: There are dark spots or patches — what’s going on?</button>
-          <div id="mo5" class="panel" aria-hidden="true"><p>A: Too much sun or stale water sitting in the soil. Move him back a bit, and make sure his feet aren’t wet for days.</p></div>
-        </div>
-      </div>
-    </section>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Bromelia Hope -->
-    <section id="bromelia-hope" class="plant-card">
-      <header class="plant-header">
-        <h2>Bromelia Hope</h2>
-        <div class="nickname">Cup Queen 🌸👑</div>
-      </header>
-      <div class="personality">
-        <p>Cup Queen doesn’t drink from the roots like the others — she sips rainwater from a personal goblet at her center like royalty. She’s tropical, extra, and low-key high-maintenance in the most passive-aggressive way possible. She blooms once, makes a scene, then slowly ghosts you while raising her plant babies. She’s got spiky edges, vibrant colors, and unapologetic “I’m not like other plants” energy.</p>
-      </div>
-      <figure class="image-container">
-        <img src="_CupQueen.webp" alt="Bromelia Hope with cup">
-        <figcaption class="caption">Serving drama, hydration, and floral realness.</figcaption>
-      </figure>
-      <div class="green-routine">
-        <h3>Green Routine</h3>
-        <ul>
-          <li>Light: Bright, indirect light — filtered is fab. Too much sun will crisp her crown.</li>
-          <li>Water: Fill the center cup (yes, the plant has a cup) with fresh water. Change it every 1–2 weeks. Moisten the soil lightly, not like a swamp.</li>
-          <li>Humidity: Loves humidity. Think rainforest, not radiator.</li>
-          <li>Feeding: You can use a very diluted fertilizer in the center cup during spring/summer — spa water vibes only.</li>
-          <li>Grooming: Snip off faded blooms or browning leaves at the base. She wants to be seen at her best.</li>
-        </ul>
-      </div>
-      <div class="drama-files">
-        <h3>The Drama Files</h3>
-        <div class="accordion">
-          <button aria-expanded="false" aria-controls="bo1">Q: The leaves are turning yellow — what does that mean?</button>
-          <div id="bo1" class="panel" aria-hidden="true"><p>A: Could be poor drainage or old age. If it’s just a couple leaves at the base, she’s doing a wardrobe change. If it’s widespread, check the soil — she’s not into soggy bottoms.</p></div>
-          <button aria-expanded="false" aria-controls="bo2">Q: The tips of the leaves are dry and crispy — is that normal?</button>
-          <div id="bo2" class="panel" aria-hidden="true"><p>A: Not really. Likely low humidity or stale water in her center cup. Give her cleaner sips and a steamier vibe.</p></div>
-          <button aria-expanded="false" aria-controls="bo3">Q: Why are the leaves drooping like that?</button>
-          <div id="bo3" class="panel" aria-hidden="true"><p>A: Could be root stress or a totally dry cup. Top off her tank and mist her ego — she’ll revive if you show her some respect.</p></div>
-          <button aria-expanded="false" aria-controls="bo4">Q: Why is it leaning toward the window?</button>
-          <div id="bo4" class="panel" aria-hidden="true"><p>A: That’s her turning toward the drama (a.k.a. the light). Rotate her every week so she stays centered and stunning.</p></div>
-          <button aria-expanded="false" aria-controls="bo5">Q: There are dark spots or patches — what’s going on?</button>
-          <div id="bo5" class="panel" aria-hidden="true"><p>A: Either her cup got funky or she’s burning in direct sun. Empty that stagnant tea and move her into a calmer light.</p></div>
-        </div>
-      </div>
-    </section>
+  <main id="main" role="main">
+    <!-- Couch Creeper Queen -->
+    <article id="couch-creeper" class="plant-card" tabindex="0">
+      <div class="plant-card-content">
+        <header class="plant-header">
+          <h2>Pothos</h2>
+          <p class="nickname">"Couch Creeper Queen"</p>
+        </header>
 
-    <!-- Pachira aquatica -->
-    <section id="pachira-aquatica" class="plant-card">
-      <header class="plant-header">
-        <h2>Pachira aquatica</h2>
-        <div class="nickname">Cha-Ching Chonk 🌳</div>
-      </header>
-      <div class="personality">
-        <p>Cha-Ching Chonk is your financially responsible, spiritually chaotic roommate. She’s got a braided trunk like she came straight from a forest spa retreat, and she’s always throwing leafy high-fives from the windowsill. Said to bring luck and coin vibes (but only if you don’t kill her), she’s chill until you overwater her — then she spirals. She loves rotation, mild sun, and being admired like a motivational poster in plant form.</p>
-      </div>
-      <figure class="image-container">
-        <img src="_ChaChingChonk.jpg" alt="Money Tree braided trunk">
-        <figcaption class="caption">Braided trunk. Inner peace. Big chonk energy.</figcaption>
-      </figure>
-      <div class="green-routine">
-        <h3>Green Routine</h3>
-        <ul>
-          <li>Light: Bright, indirect light. Think “sunlight filtering through your accountant’s blinds.”</li>
-          <li>Water: Only when the top 5 cm of soil feels dry. She’s not into wet roots — she’s a money tree, not a water fountain.</li>
-          <li>Humidity: Likes it medium. If the air’s dry, she might ask for a mist. She’s flexible, not thirsty.</li>
-          <li>Feeding: Once a month in growing season. She’s modest — no need to splurge.</li>
-          <li>Grooming: Rotate weekly for balanced growth and wipe down those palm-like leaves when dusty.</li>
-        </ul>
-      </div>
-      <div class="drama-files">
-        <h3>The Drama Files</h3>
-        <div class="accordion">
-          <button aria-expanded="false" aria-controls="pa1">Q: The leaves are turning yellow — what does that mean?</button>
-          <div id="pa1" class="panel" aria-hidden="true"><p>A: Overwatering. Cha-Ching Chonk likes a steady income of moisture, not a flood. Let the soil dry out a bit before you water again.</p></div>
-          <button aria-expanded="false" aria-controls="pa2">Q: The tips of the leaves are dry and crispy — is that normal?</button>
-          <div id="pa2" class="panel" aria-hidden="true"><p>A: Could be low humidity or just basic apartment stress. A little mist or better placement usually does the trick.</p></div>
-          <button aria-expanded="false" aria-controls="pa3">Q: Why are the leaves drooping like that?</button>
-          <div id="pa3" class="panel" aria-hidden="true"><p>A: Might be thirsty, might be in shock from too much love. Check the soil — if it’s dry, give her a drink. If not, back off and let her breathe.</p></div>
-          <button aria-expanded="false" aria-controls="pa4">Q: Why is it leaning toward the window?</button>
-          <div id="pa4" class="panel" aria-hidden="true"><p>A: She’s reaching for her next business opportunity (a.k.a. more light). Rotate her so she doesn’t become a sideways stock chart.</p></div>
-          <button aria-expanded="false" aria-controls="pa5">Q: There are dark spots or patches — what’s going on?</button>
-          <div id="pa5" class="panel" aria-hidden="true"><p>A: Could be water sitting on her leaves, cold drafts, or that shady corner you stuck her in. Move her to somewhere bright and cozy.</p></div>
-        </div>
-      </div>
-    </section>
+        <section class="personality">
+          <p>This trailing beauty is the ultimate low-maintenance companion who loves to cascade dramatically from shelves while secretly judging your Netflix choices. She's the friend who always looks effortlessly gorgeous even when you forget about her for weeks.</p>
+        </section>
 
-    <!-- Spathiphyllum -->
-    <section id="spathiphyllum" class="plant-card">
-      <header class="plant-header">
-        <h2>Spathiphyllum</h2>
-        <div class="nickname">Diva Droopa 🌂</div>
-      </header>
-      <div class="personality">
-        <p>Diva Droopa is always one glass of water away from a full emotional collapse — but don’t worry, she’s just expressive. One minute she’s standing tall and glowing, the next she’s draped over the pot like she just lost a Grammy. But she always bounces back. She’s the definition of “low effort, high drama.” Cleans your air, blooms when she feels cute, and droops just to remind you she exists. Respect her thirst and she’ll bless your space with spa-day energy.</p>
-      </div>
-      <figure class="image-container">
-        <img src="_DivaDroppa.jpg" alt="Peace Lily drooping flower">
-        <figcaption class="caption">I wilt, therefore I am.</figcaption>
-      </figure>
-      <div class="green-routine">
-        <h3>Green Routine</h3>
-        <ul>
-          <li>Light: Low to medium indirect light. She’s chill in shade but will bloom better with soft light.</li>
-          <li>Water: Water when the topsoil is dry. If she droops dramatically, it’s her version of texting “I’m fine” — she’s not fine. Water her.</li>
-          <li>Humidity: Loves it. Keep the air slightly moist or mist occasionally for that dewy glow.</li>
-          <li>Feeding: Every 6–8 weeks in spring and summer. She’s not greedy.</li>
-          <li>Grooming: Snip spent blooms, wipe the leaves, and let her shine like the clean-air queen she is.</li>
-        </ul>
-      </div>
-      <div class="drama-files">
-        <h3>The Drama Files</h3>
-        <div class="accordion">
-          <button aria-expanded="false" aria-controls="sl1">Q: The leaves are turning yellow — what does that mean?</button>
-          <div id="sl1" class="panel" aria-hidden="true"><p>A: Likely overwatering. Diva Droopa doesn’t want wet feet. Let the soil dry a bit before the next drink.</p></div>
-          <button aria-expanded="false" aria-controls="sl2">Q: The tips of the leaves are dry and crispy — is that normal?</button>
-          <div id="sl2" class="panel" aria-hidden="true"><p>A: It’s a humidity issue or water with too many minerals. Try filtered water and raise the moisture in the room.</p></div>
-          <button aria-expanded="false" aria-controls="sl3">Q: Why are the leaves drooping like that?</button>
-          <div id="sl3" class="panel" aria-hidden="true"><p>A: Classic Droopa move. She’s thirsty and wants you to notice. Water her and give her 2 hours to dramatically revive.</p></div>
-          <button aria-expanded="false" aria-controls="sl4">Q: Why is it leaning toward the window?</button>
-          <div id="sl4" class="panel" aria-hidden="true"><p>A: She’s following the spotlight. Rotate her regularly so she stays poised and symmetrical.</p></div>
-          <button aria-expanded="false" aria-controls="sl5">Q: There are dark spots or patches — what’s going on?</button>
-          <div id="sl5" class="panel" aria-hidden="true"><p>A: Could be sunburn or overwatering. She prefers filtered light and solid drainage — she’s delicate but not difficult.</p></div>
-        </div>
-      </div>
-    </section>
+        <section class="green-routine">
+          <h3 class="section-header">Green Routine</h3>
+          <ul>
+            <li><strong>Water:</strong> When the top inch of soil feels dry (usually every 1-2 weeks). She's forgiving if you forget!</li>
+            <li><strong>Light:</strong> Bright, indirect light but tolerates lower light like a champ</li>
+            <li><strong>Humidity:</strong> Regular household humidity is perfect</li>
+            <li><strong>Temperature:</strong> Comfortable room temperature (65-75°F)</li>
+            <li><strong>Fertilizer:</strong> Monthly during growing season with diluted liquid fertilizer</li>
+          </ul>
+        </section>
 
-    <!-- Ctenanthe Amagris -->
-    <section id="ctenanthe-amagris" class="plant-card">
-      <header class="plant-header">
-        <h2>Ctenanthe Amagris</h2>
-        <div class="nickname">Misty Midnights 🦇</div>
-      </header>
-      <div class="personality">
-        <p>Misty Midnights is your elegant-but-emotional goth plant. Silvery leaves with midnight purple undersides? Yes. Folds up at night like she’s casting spells? Also yes. She thrives in low light, sulks when the air’s dry, and needs humidity like your roommate needs incense. She’s sensitive, particular, and utterly captivating — like a moonlit poem trapped in plant form. Handle with care and mist with love.</p>
+        <section class="drama-files">
+          <h3 class="section-header">Drama Files</h3>
+          <div class="accordion">
+            <div class="accordion-item">
+              <button type="button" aria-expanded="false" aria-controls="pothos-drama-1">
+                Yellow leaves appearing like autumn came early
+              </button>
+              <div class="panel" id="pothos-drama-1" role="region">
+                <p>Usually means you're being too generous with water. Let her dry out between waterings - she prefers to be slightly thirsty rather than drowning in love.</p>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button type="button" aria-expanded="false" aria-controls="pothos-drama-2">
+                Leaves losing their gorgeous variegation
+              </button>
+              <div class="panel" id="pothos-drama-2" role="region">
+                <p>She needs more light to maintain those beautiful patterns. Move her closer to a window but avoid direct sun that might scorch her delicate leaves.</p>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button type="button" aria-expanded="false" aria-controls="pothos-drama-3">
+                Growing slower than a sleepy sloth
+              </button>
+              <div class="panel" id="pothos-drama-3" role="region">
+                <p>Completely normal in winter! She's just taking a well-deserved rest. Resume regular feeding in spring and watch her take off like a green rocket.</p>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-      <figure class="image-container">
-        <img src="_MistyMidnight.jpg" alt="Ctenanthe Amagris silvery foliage">
-        <figcaption class="caption">Dark mode, always. Even in the rainforest.</figcaption>
-      </figure>
-      <div class="green-routine">
-        <h3>Green Routine</h3>
-        <ul>
-          <li>Light: Low to medium indirect. Think filtered forest floor, not sun-tanning on the balcony.</li>
-          <li>Water: Keep the soil consistently lightly moist — never soggy. She’s delicate, not dramatic.</li>
-          <li>Humidity: Craves it. Group her with friends, mist daily, or set up a pebble tray altar in her honor.</li>
-          <li>Feeding: Light snacks only — once a month during growing season.</li>
-          <li>Grooming: Gently wipe her leaves and talk softly. She likes attention, but on her terms.</li>
-        </ul>
-      </div>
-      <div class="drama-files">
-        <h3>The Drama Files</h3>
-        <div class="accordion">
-          <button aria-expanded="false" aria-controls="cm1">Q: The leaves are turning yellow — what does that mean?</button>
-          <div id="cm1" class="panel" aria-hidden="true"><p>A: Probably too much water or bad drainage. She likes balance, not wet socks. Check the pot and back off the watering.</p></div>
-          <button aria-expanded="false" aria-controls="cm2">Q: The tips of the leaves are dry and crispy — is that normal?</button>
-          <div id="cm2" class="panel" aria-hidden="true"><p>A: Very common in dry air. She’s craving mist or higher humidity — give her rainforest energy, not desert.</p></div>
-          <button aria-expanded="false" aria-controls="cm3">Q: Why are the leaves drooping like that?</button>
-          <div id="cm3" class="panel" aria-hidden="true"><p>A: She’s either thirsty or just woke up — she does fold her leaves at night, after all. Check the soil first.</p></div>
-          <button aria-expanded="false" aria-controls="cm4">Q: Why is it leaning toward the window?</button>
-          <div id="cm4" class="panel" aria-hidden="true"><p>A: She’s reaching for a moodier corner of the light. Rotate her now and then, but don’t toss her in full sun — she’ll ghost you.</p></div>
-          <button aria-expanded="false" aria-controls="cm5">Q: There are dark spots or patches — what’s going on?</button>
-          <div id="cm5" class="panel" aria-hidden="true"><p>A: Could be cold air, crispy vibes, or low humidity drama. Move her somewhere warmer and more humid — maybe put on some ambient synths too.</p></div>
+
+      <div class="image-section">
+        <div class="image-container">
+          <img src="https://images.unsplash.com/photo-1586093248292-4e49ce61d4cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Lush green pothos plant cascading from a white pot, showing its characteristic heart-shaped variegated leaves" loading="lazy">
+          <p class="caption">The Couch Creeper Queen in all her trailing glory, ready to transform any space into a green paradise</p>
         </div>
       </div>
-    </section>
+    </article>
+
+    <!-- Misty Midnights -->
+    <article id="misty-midnights" class="plant-card" tabindex="0">
+      <div class="plant-card-content">
+        <header class="plant-header">
+          <h2>Boston Fern</h2>
+          <p class="nickname">"Misty Midnights"</p>
+        </header>
+
+        <section class="personality">
+          <p>This dramatic diva loves to live her best life in humid, spa-like conditions. She's the plant equivalent of someone who needs their daily mist and gets cranky without proper pampering. Absolutely gorgeous when happy, absolutely dramatic when not.</p>
+        </section>
+
+        <section class="green-routine">
+          <h3 class="section-header">Green Routine</h3>
+          <ul>
+            <li><strong>Water:</strong> Keep soil consistently moist but never soggy - she's high maintenance like that</li>
+            <li><strong>Light:</strong> Bright, indirect light - direct sun will crisp her delicate fronds</li>
+            <li><strong>Humidity:</strong> High humidity (50%+) - mist daily or use a humidifier</li>
+            <li><strong>Temperature:</strong> Cool to moderate (60-70°F) - she doesn't like it too hot</li>
+            <li><strong>Fertilizer:</strong> Light feeding monthly during growing season</li>
+          </ul>
+        </section>
+
+        <section class="drama-files">
+          <h3 class="section-header">Drama Files</h3>
+          <div class="accordion">
+            <div class="accordion-item">
+              <button type="button" aria-expanded="false" aria-controls="fern-drama-1">
+                Fronds turning brown and crispy like autumn leaves
+              </button>
+              <div class="panel" id="fern-drama-1" role="region">
+                <p>She's crying out for more humidity! Increase misting, add a pebble tray, or invest in a humidifier. Also check that she's not getting direct sunlight.</p>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button type="button" aria-expanded="false" aria-controls="fern-drama-2">
+                Dropping fronds like she's shedding a winter coat
+              </button>
+              <div class="panel" id="fern-drama-2" role="region">
+                <p>Usually stress from changes in environment, watering, or humidity. Be patient and consistent with care - she'll bounce back once she adjusts.</p>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button type="button" aria-expanded="false" aria-controls="fern-drama-3">
+                New growth looking pale and weak
+              </button>
+              <div class="panel" id="fern-drama-3" role="region">
+                <p>She needs more light! Move her to a brighter spot with filtered light, but never direct sun. Think "bright bathroom window" vibes.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="image-section">
+        <div class="image-container">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Lush Boston fern with delicate, feathery fronds in a hanging basket" loading="lazy">
+          <p class="caption">Misty Midnights showing off her delicate, feathery fronds that demand spa-level treatment</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Add more plant cards following the same pattern... -->
+    
   </main>
 
   <script>
-    document.querySelectorAll('.accordion button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const expanded = btn.getAttribute('aria-expanded') === 'true';
-        const panel = document.getElementById(btn.getAttribute('aria-controls'));
-        btn.setAttribute('aria-expanded', String(!expanded));
-        panel.setAttribute('aria-hidden', String(expanded));
-        panel.style.maxHeight = expanded ? null : panel.scrollHeight + 'px';
+    // Enhanced accordion functionality with better accessibility
+    document.addEventListener('DOMContentLoaded', function() {
+      const accordionButtons = document.querySelectorAll('.accordion button');
+      
+      accordionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const expanded = this.getAttribute('aria-expanded') === 'true';
+          const panel = document.getElementById(this.getAttribute('aria-controls'));
+          
+          // Close all other panels
+          accordionButtons.forEach(otherButton => {
+            if (otherButton !== this) {
+              otherButton.setAttribute('aria-expanded', 'false');
+              const otherPanel = document.getElementById(otherButton.getAttribute('aria-controls'));
+              otherPanel.style.maxHeight = '0';
+            }
+          });
+          
+          // Toggle current panel
+          this.setAttribute('aria-expanded', !expanded);
+          
+          if (!expanded) {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          } else {
+            panel.style.maxHeight = '0';
+          }
+        });
+
+        // Keyboard navigation
+        button.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click();
+          }
+        });
+      });
+
+      // Smooth scroll for navigation links
+      document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+            target.focus();
+          }
+        });
+      });
+
+      // Intersection Observer for animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.plant-card').forEach(card => {
+        observer.observe(card);
+      });
+
+      // Add loading states for images
+      document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('load', function() {
+          this.parentElement.classList.remove('loading');
+        });
+        
+        if (!img.complete) {
+          img.parentElement.classList.add('loading');
+        }
       });
     });
+
+    // Service Worker for offline functionality (optional)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').then(function(registration) {
+          console.log('SW registered: ', registration);
+        }).catch(function(registrationError) {
+          console.log('SW registration failed: ', registrationError);
+        });
+      });
+    }
   </script>
 </body>
 </html>

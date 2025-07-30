@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plant di Herb Man and mek it grow</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Karla:wght@400;600&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --soft-green: #a8d5ba;
+      --beige: #f5f1e8;
+      --light-brown: #d8c3a5;
+      --bg: #fdfbf7;
+      --text: #333;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--beige);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 10px;
+    }
+    nav ul li {
+      margin: 0 15px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--text);
+    }
+    main {
+      padding-top: 70px; /* offset for fixed nav */
+    }
+    .plant-card {
+      background: var(--bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin: 20px auto;
+      max-width: 800px;
+      padding: 20px;
+      transition: transform 0.2s;
+    }
+    .plant-card:hover {
+      transform: translateY(-5px);
+    }
+    .plant-header {
+      margin-bottom: 15px;
+    }
+    .plant-header h2 {
+      font-family: 'Comic Neue', cursive;
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+    .plant-header .nickname {
+      font-size: 1.2rem;
+      color: var(--soft-green);
+    }
+    .personality {
+      margin-bottom: 15px;
+    }
+    .image-container {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .image-container .caption {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-top: 5px;
+    }
+    .green-routine {
+      margin-bottom: 15px;
+    }
+    .green-routine h3 {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    .green-routine h3::before {
+      content: '🧼';
+      margin-right: 8px;
+    }
+    .green-routine ul {
+      list-style: disc inside;
+    }
+    .green-routine li {
+      margin-bottom: 5px;
+      padding-left: 5px;
+    }
+    .drama-files {
+      margin-bottom: 15px;
+    }
+    .drama-files h3 {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    .drama-files h3::before {
+      content: '🎭';
+      margin-right: 8px;
+    }
+    .accordion-item {
+      border-top: 1px solid var(--light-brown);
+    }
+    .accordion-header {
+      cursor: pointer;
+      padding: 10px 0;
+      font-weight: 600;
+      position: relative;
+    }
+    .accordion-header::after {
+      content: '▼';
+      position: absolute;
+      right: 0;
+      transition: transform 0.2s;
+    }
+    .accordion-header.active::after {
+      transform: rotate(180deg);
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .accordion-content p {
+      padding: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <!-- Update nav links manually -->
+      <li><a href="#epipremnum-marble-queen">Marble Queen</a></li>
+      <li><a href="#plant-2">Plant 2</a></li>
+      <li><a href="#plant-3">Plant 3</a></li>
+    </ul>
+  </nav>
+  <main>
+    <!-- Sample Plant Entry -->
+    <section id="epipremnum-marble-queen" class="plant-card">
+      <div class="plant-header">
+        <h2>Epipremnum Marble Queen</h2>
+        <div class="nickname">Couch Creeper Queen 👑</div>
+      </div>
+      <div class="personality">
+        <!-- Insert Personality Paragraph -->
+        <p>Your plant personality paragraph goes here.</p>
+      </div>
+      <div class="image-container">
+        <img src="monstera.jpg" alt="Epipremnum Marble Queen">
+        <div class="caption">Your marble beauty in her natural glory.</div>
+      </div>
+      <div class="green-routine">
+        <h3>Green Routine</h3>
+        <ul>
+          <li>Water when top 2 inches of soil feel dry.</li>
+          <li>Bright, indirect light but no harsh sun.</li>
+          <li>Mist leaves weekly to keep humidity happy.</li>
+          <!-- Add more tips -->
+        </ul>
+      </div>
+      <div class="drama-files">
+        <h3>The Drama Files</h3>
+        <div class="accordion-item">
+          <div class="accordion-header">Why are my leaves yellowing?</div>
+          <div class="accordion-content">
+            <p>Answer goes here.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">How often should I fertilize?</div>
+          <div class="accordion-content">
+            <p>Answer goes here.</p>
+          </div>
+        </div>
+        <!-- Add up to 5 FAQ items -->
+      </div>
+    </section>
+    <!-- Repeat for other plants -->
+  </main>
+  <script>
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.classList.toggle('active');
+        const content = header.nextElementSibling;
+        if (header.classList.contains('active')) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+        } else {
+          content.style.maxHeight = null;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

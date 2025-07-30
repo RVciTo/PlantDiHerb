@@ -4,21 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Plant di Herb Man and mek it grow</title>
-  <!-- Skip link for keyboard users -->
+  <!-- Skip link for accessibility -->
+  <!-- Skip link for accessibility -->
   <style>
     .skip-link {
       position: absolute;
-      top: -40px;
-      left: 0;
-      background: #000;
-      color: #fff;
-      padding: 8px;
-      z-index: 100;
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: top 0.3s;
+      left: -9999px;
     }
     .skip-link:focus {
+      left: 0;
       top: 0;
     }
   </style>
@@ -33,118 +27,56 @@
       --text: #333;
       --focus: #ffa726;
     }
-    *, *::before, *::after { box-sizing: border-box; }
+    /* KEEP box-sizing reset, but remove margin reset here */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      /* margin & padding will be reset only where needed below */
+    }
+    
+    /* restore default spacing for key elements */
+    h2 {
+      margin-bottom: 0.5em;
+    }
+    p {
+      margin-bottom: 1em;
+    }
+    .green-routine, .drama-files {
+      margin-bottom: 1.5em;
+    }
     html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: 'Quicksand', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 0 10px 20px;
+    body { margin: 0; font-family: 'Quicksand', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 0 10px 20px; }
+    nav { background: var(--beige); box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+    nav ul { display: flex; overflow-x: auto; list-style: none; padding: 10px; }
+    nav ul li {
+      flex: 0 0 auto;
     }
-    nav {
-      background: var(--beige);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    nav ul {
-      display: flex;
-      overflow-x: auto;
-      list-style: none;
-      margin: 0;
-      padding: 10px;
-    }
-    nav a {
-      display: block;
-      margin-right: 15px;
-      text-decoration: none;
-      font-weight: 600;
-      color: var(--text);
-      white-space: nowrap;
-    }
+    nav a { display: block; margin-right: 15px; text-decoration: none; font-weight: 600; color: var(--text); white-space: nowrap; }
     nav a:focus { outline: 2px solid var(--focus); border-radius: 4px; }
     main { padding-top: 10px; }
-    section.plant-card {
-      background: var(--bg);
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      margin: 20px auto;
-      padding: 15px;
-      max-width: 800px;
-      transition: transform 0.2s;
-    }
-    section.plant-card:hover { transform: translateY(-3px); }
-    .plant-header h2 {
-      font-family: 'Comic Neue', cursive;
-      font-size: 1.75rem;
-      color: var(--soft-green);
-      margin-bottom: 4px;
-      line-height: 1.2;
-    }
-    .plant-header .nickname {
-      font-size: 1.1rem;
-      color: var(--light-brown);
-      font-style: italic;
-    }
+    .plant-card { background: var(--bg); border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 20px auto; padding: 15px; max-width: 800px; transition: transform 0.2s; }
+    .plant-card:hover { transform: translateY(-3px); }
+    .plant-header h2 { font-family: 'Comic Neue', cursive; font-size: 1.75rem; color: var(--soft-green); margin-bottom: 4px; line-height: 1.2; }
+    .plant-header .nickname { font-size: 1.1rem; color: var(--light-brown); font-style: italic; }
     .personality { margin: 12px 0; }
-    .image-container img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-    .caption {
-      font-family: 'Karla', sans-serif;
-      font-size: 0.85rem;
-      margin-top: 6px;
-      color: var(--text);
-    }
+    .image-container img { width: 100%; height: auto; border-radius: 8px; }
+    .caption { font-family: 'Karla', sans-serif; font-size: 0.85rem; margin-top: 6px; color: var(--text); }
     .green-routine, .drama-files { margin: 16px 0; }
-    .green-routine h3, .drama-files h3 {
-      display: flex;
-      align-items: center;
-      font-size: 1.3rem;
-      margin-bottom: 8px;
-    }
+    .green-routine h3, .drama-files h3 { display: flex; align-items: center; font-size: 1.3rem; margin-bottom: 8px; }
     .green-routine h3::before { content: '🧼'; margin-right: 8px; }
     .drama-files h3::before { content: '🎭'; margin-right: 8px; }
     .green-routine ul { list-style: disc inside; padding-left: 8px; }
     .green-routine li { margin-bottom: 6px; }
-    .accordion {
+    .accordion button { 
+      width: 100%; text-align: left; padding: 10px 0; font-weight: 600; background: none; border: none; position: relative; font-size: 1rem; cursor: pointer; 
       border-top: 1px solid var(--light-brown);
+      padding-top: 12px;  /* give a little breathing room above each question */
     }
-    .accordion button {
-      width: 100%;
-      text-align: left;
-      padding: 10px 0;
-      font-weight: 600;
-      background: none;
-      border: none;
-      position: relative;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .accordion button::after {
-      content: '▼';
-      position: absolute;
-      right: 0;
-      transition: transform 0.2s;
-    }
-    .accordion button[aria-expanded="true"]::after {
-      transform: rotate(180deg);
-    }
+    .accordion button::after { content: '▼'; position: absolute; right: 0; transition: transform 0.2s; }
+    .accordion button[aria-expanded="true"]::after { transform: rotate(180deg); }
     .accordion button:focus { outline: 2px solid var(--focus); }
-    .panel {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
+    .panel { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
     .panel p { padding: 10px 0; }
-    @media (min-width: 600px) {
-      body { padding: 0 20px 40px; }
-    }
+    @media (min-width: 600px) { body { padding: 0 20px 40px; } }
   </style>
 </head>
 <body>
@@ -169,10 +101,10 @@
       <div class="personality">
         <p>Couch Creeper Queen lives for the drama of doing absolutely nothing. She reclines. She trails. She spills out of her pot like she’s fainting in slow motion. She’s the friend who’s always “on the way” but never leaves the house. Needs almost nothing to thrive and still makes your space look like a boho Pinterest board. If plants had Netflix accounts, she’d be the one poking into your profile, watching “Mushrooms: The Silent Drama” under your name and never admitting it.</p>
       </div>
-      <div class="image-container">
+      <figure class="image-container">
         <img src="_CouchCreeperQueen.webp" alt="Couch Creeper Queen trailing vines">
-        <div class="caption">I’m not lazy, I’m on energy-saving mode.</div>
-      </div>
+        <figcaption class="caption">I’m not lazy, I’m on energy-saving mode.</figcaption>
+      </figure>
       <div class="green-routine">
         <h3>Green Routine</h3>
         <ul>
@@ -199,8 +131,207 @@
         </div>
       </div>
     </section>
-    <!-- Repeat similar structure for other plants, ensuring each accordion button has unique aria-controls, associated panels, and initial aria-expanded="false" -->
+    <!-- Musa Oriental Dwarf -->
+    <section id="musa-oriental-dwarf" class="plant-card">
+      <header class="plant-header">
+        <h2>Musa Oriental Dwarf</h2>
+        <div class="nickname">Big Leaf Energy 🍌</div>
+      </header>
+      <div class="personality">
+        <p>Big Leaf Energy is that guest who shows up in full tropical gear to a chill house party — no one asked, but everyone’s glad he did. He’s dramatic, thirsty, and needs room to sprawl like he owns the balcony. Loves attention, hates dry air, and gets cranky if ignored for more than a day. If this plant could speak, it’d ask for a mist, a spritz of lime, and a playlist called “Jungle Beats & Self-Watering Regrets.”</p>
+      </div>
+      <figure class="image-container">
+        <img src="_BigLeafEnergy.webp" alt="Big Leaf Energy broad leaves">
+        <figcaption class="caption">Bigger leaves. Bigger feelings.</figcaption>
+      </figure>
+      <div class="green-routine">
+        <h3>Green Routine</h3>
+        <ul>
+          <li>Light: Bright indirect light, with a flirtation for morning sun. Too much direct heat = scorched drama.</li>
+          <li>Water: Keep soil moist but never soggy. He hates extremes — stay moderate like a chill DJ set.</li>
+          <li>Humidity: Yes. All of it. Mist him, steam him, make him feel like he’s in Bali.</li>
+          <li>Feeding: Twice a month in spring/summer. He eats like he’s prepping for a tropical bodybuilding competition.</li>
+          <li>Grooming: Wipe leaves gently and trim any brown drama. Big leaves, big moods.</li>
+        </ul>
+      </div>
+      <div class="drama-files">
+        <h3>The Drama Files</h3>
+        <div class="accordion">
+          <button aria-expanded="false" aria-controls="mo1">Q: The leaves are turning yellow — what does that mean?</button>
+          <div id="mo1" class="panel" aria-hidden="true"><p>A: Could be overwatering or a lack of light. He’s dramatic, not subtle. Let the soil breathe and shift him into the spotlight (indirect, of course).</p></div>
+          <button aria-expanded="false" aria-controls="mo2">Q: The tips of the leaves are dry and crispy — is that normal?</button>
+          <div id="mo2" class="panel" aria-hidden="true"><p>A: Nope, that’s him throwing shade about the humidity. Mist more often or get a humidifier. He’s tropical, remember?</p></div>
+          <button aria-expanded="false" aria-controls="mo3">Q: Why are the leaves drooping like that?</button>
+          <div id="mo3" class="panel" aria-hidden="true"><p>A: He’s parched. Or mad. Either way, water him and give him 30 minutes — he’ll be back and fabulous.</p></div>
+          <button aria-expanded="false" aria-controls="mo4">Q: Why is it leaning toward the window?</button>
+          <div id="mo4" class="panel" aria-hidden="true"><p>A: Light-chaser behavior. Rotate him every week so he doesn’t spiral into a banana-side bend.</p></div>
+          <button aria-expanded="false" aria-controls="mo5">Q: There are dark spots or patches — what’s going on?</button>
+          <div id="mo5" class="panel" aria-hidden="true"><p>A: Too much sun or stale water sitting in the soil. Move him back a bit, and make sure his feet aren’t wet for days.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bromelia Hope -->
+    <section id="bromelia-hope" class="plant-card">
+      <header class="plant-header">
+        <h2>Bromelia Hope</h2>
+        <div class="nickname">Cup Queen 🌸👑</div>
+      </header>
+      <div class="personality">
+        <p>Cup Queen doesn’t drink from the roots like the others — she sips rainwater from a personal goblet at her center like royalty. She’s tropical, extra, and low-key high-maintenance in the most passive-aggressive way possible. She blooms once, makes a scene, then slowly ghosts you while raising her plant babies. She’s got spiky edges, vibrant colors, and unapologetic “I’m not like other plants” energy.</p>
+      </div>
+      <figure class="image-container">
+        <img src="_CupQueen.webp" alt="Bromelia Hope with cup">
+        <figcaption class="caption">Serving drama, hydration, and floral realness.</figcaption>
+      </figure>
+      <div class="green-routine">
+        <h3>Green Routine</h3>
+        <ul>
+          <li>Light: Bright, indirect light — filtered is fab. Too much sun will crisp her crown.</li>
+          <li>Water: Fill the center cup (yes, the plant has a cup) with fresh water. Change it every 1–2 weeks. Moisten the soil lightly, not like a swamp.</li>
+          <li>Humidity: Loves humidity. Think rainforest, not radiator.</li>
+          <li>Feeding: You can use a very diluted fertilizer in the center cup during spring/summer — spa water vibes only.</li>
+          <li>Grooming: Snip off faded blooms or browning leaves at the base. She wants to be seen at her best.</li>
+        </ul>
+      </div>
+      <div class="drama-files">
+        <h3>The Drama Files</h3>
+        <div class="accordion">
+          <button aria-expanded="false" aria-controls="bo1">Q: The leaves are turning yellow — what does that mean?</button>
+          <div id="bo1" class="panel" aria-hidden="true"><p>A: Could be poor drainage or old age. If it’s just a couple leaves at the base, she’s doing a wardrobe change. If it’s widespread, check the soil — she’s not into soggy bottoms.</p></div>
+          <button aria-expanded="false" aria-controls="bo2">Q: The tips of the leaves are dry and crispy — is that normal?</button>
+          <div id="bo2" class="panel" aria-hidden="true"><p>A: Not really. Likely low humidity or stale water in her center cup. Give her cleaner sips and a steamier vibe.</p></div>
+          <button aria-expanded="false" aria-controls="bo3">Q: Why are the leaves drooping like that?</button>
+          <div id="bo3" class="panel" aria-hidden="true"><p>A: Could be root stress or a totally dry cup. Top off her tank and mist her ego — she’ll revive if you show her some respect.</p></div>
+          <button aria-expanded="false" aria-controls="bo4">Q: Why is it leaning toward the window?</button>
+          <div id="bo4" class="panel" aria-hidden="true"><p>A: That’s her turning toward the drama (a.k.a. the light). Rotate her every week so she stays centered and stunning.</p></div>
+          <button aria-expanded="false" aria-controls="bo5">Q: There are dark spots or patches — what’s going on?</button>
+          <div id="bo5" class="panel" aria-hidden="true"><p>A: Either her cup got funky or she’s burning in direct sun. Empty that stagnant tea and move her into a calmer light.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pachira aquatica -->
+    <section id="pachira-aquatica" class="plant-card">
+      <header class="plant-header">
+        <h2>Pachira aquatica</h2>
+        <div class="nickname">Cha-Ching Chonk 🌳</div>
+      </header>
+      <div class="personality">
+        <p>Cha-Ching Chonk is your financially responsible, spiritually chaotic roommate. She’s got a braided trunk like she came straight from a forest spa retreat, and she’s always throwing leafy high-fives from the windowsill. Said to bring luck and coin vibes (but only if you don’t kill her), she’s chill until you overwater her — then she spirals. She loves rotation, mild sun, and being admired like a motivational poster in plant form.</p>
+      </div>
+      <figure class="image-container">
+        <img src="_ChaChingChonk.jpg" alt="Money Tree braided trunk">
+        <figcaption class="caption">Braided trunk. Inner peace. Big chonk energy.</figcaption>
+      </figure>
+      <div class="green-routine">
+        <h3>Green Routine</h3>
+        <ul>
+          <li>Light: Bright, indirect light. Think “sunlight filtering through your accountant’s blinds.”</li>
+          <li>Water: Only when the top 5 cm of soil feels dry. She’s not into wet roots — she’s a money tree, not a water fountain.</li>
+          <li>Humidity: Likes it medium. If the air’s dry, she might ask for a mist. She’s flexible, not thirsty.</li>
+          <li>Feeding: Once a month in growing season. She’s modest — no need to splurge.</li>
+          <li>Grooming: Rotate weekly for balanced growth and wipe down those palm-like leaves when dusty.</li>
+        </ul>
+      </div>
+      <div class="drama-files">
+        <h3>The Drama Files</h3>
+        <div class="accordion">
+          <button aria-expanded="false" aria-controls="pa1">Q: The leaves are turning yellow — what does that mean?</button>
+          <div id="pa1" class="panel" aria-hidden="true"><p>A: Overwatering. Cha-Ching Chonk likes a steady income of moisture, not a flood. Let the soil dry out a bit before you water again.</p></div>
+          <button aria-expanded="false" aria-controls="pa2">Q: The tips of the leaves are dry and crispy — is that normal?</button>
+          <div id="pa2" class="panel" aria-hidden="true"><p>A: Could be low humidity or just basic apartment stress. A little mist or better placement usually does the trick.</p></div>
+          <button aria-expanded="false" aria-controls="pa3">Q: Why are the leaves drooping like that?</button>
+          <div id="pa3" class="panel" aria-hidden="true"><p>A: Might be thirsty, might be in shock from too much love. Check the soil — if it’s dry, give her a drink. If not, back off and let her breathe.</p></div>
+          <button aria-expanded="false" aria-controls="pa4">Q: Why is it leaning toward the window?</button>
+          <div id="pa4" class="panel" aria-hidden="true"><p>A: She’s reaching for her next business opportunity (a.k.a. more light). Rotate her so she doesn’t become a sideways stock chart.</p></div>
+          <button aria-expanded="false" aria-controls="pa5">Q: There are dark spots or patches — what’s going on?</button>
+          <div id="pa5" class="panel" aria-hidden="true"><p>A: Could be water sitting on her leaves, cold drafts, or that shady corner you stuck her in. Move her to somewhere bright and cozy.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spathiphyllum -->
+    <section id="spathiphyllum" class="plant-card">
+      <header class="plant-header">
+        <h2>Spathiphyllum</h2>
+        <div class="nickname">Diva Droopa 🌂</div>
+      </header>
+      <div class="personality">
+        <p>Diva Droopa is always one glass of water away from a full emotional collapse — but don’t worry, she’s just expressive. One minute she’s standing tall and glowing, the next she’s draped over the pot like she just lost a Grammy. But she always bounces back. She’s the definition of “low effort, high drama.” Cleans your air, blooms when she feels cute, and droops just to remind you she exists. Respect her thirst and she’ll bless your space with spa-day energy.</p>
+      </div>
+      <figure class="image-container">
+        <img src="_DivaDroppa.jpg" alt="Peace Lily drooping flower">
+        <figcaption class="caption">I wilt, therefore I am.</figcaption>
+      </figure>
+      <div class="green-routine">
+        <h3>Green Routine</h3>
+        <ul>
+          <li>Light: Low to medium indirect light. She’s chill in shade but will bloom better with soft light.</li>
+          <li>Water: Water when the topsoil is dry. If she droops dramatically, it’s her version of texting “I’m fine” — she’s not fine. Water her.</li>
+          <li>Humidity: Loves it. Keep the air slightly moist or mist occasionally for that dewy glow.</li>
+          <li>Feeding: Every 6–8 weeks in spring and summer. She’s not greedy.</li>
+          <li>Grooming: Snip spent blooms, wipe the leaves, and let her shine like the clean-air queen she is.</li>
+        </ul>
+      </div>
+      <div class="drama-files">
+        <h3>The Drama Files</h3>
+        <div class="accordion">
+          <button aria-expanded="false" aria-controls="sl1">Q: The leaves are turning yellow — what does that mean?</button>
+          <div id="sl1" class="panel" aria-hidden="true"><p>A: Likely overwatering. Diva Droopa doesn’t want wet feet. Let the soil dry a bit before the next drink.</p></div>
+          <button aria-expanded="false" aria-controls="sl2">Q: The tips of the leaves are dry and crispy — is that normal?</button>
+          <div id="sl2" class="panel" aria-hidden="true"><p>A: It’s a humidity issue or water with too many minerals. Try filtered water and raise the moisture in the room.</p></div>
+          <button aria-expanded="false" aria-controls="sl3">Q: Why are the leaves drooping like that?</button>
+          <div id="sl3" class="panel" aria-hidden="true"><p>A: Classic Droopa move. She’s thirsty and wants you to notice. Water her and give her 2 hours to dramatically revive.</p></div>
+          <button aria-expanded="false" aria-controls="sl4">Q: Why is it leaning toward the window?</button>
+          <div id="sl4" class="panel" aria-hidden="true"><p>A: She’s following the spotlight. Rotate her regularly so she stays poised and symmetrical.</p></div>
+          <button aria-expanded="false" aria-controls="sl5">Q: There are dark spots or patches — what’s going on?</button>
+          <div id="sl5" class="panel" aria-hidden="true"><p>A: Could be sunburn or overwatering. She prefers filtered light and solid drainage — she’s delicate but not difficult.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ctenanthe Amagris -->
+    <section id="ctenanthe-amagris" class="plant-card">
+      <header class="plant-header">
+        <h2>Ctenanthe Amagris</h2>
+        <div class="nickname">Misty Midnights 🦇</div>
+      </header>
+      <div class="personality">
+        <p>Misty Midnights is your elegant-but-emotional goth plant. Silvery leaves with midnight purple undersides? Yes. Folds up at night like she’s casting spells? Also yes. She thrives in low light, sulks when the air’s dry, and needs humidity like your roommate needs incense. She’s sensitive, particular, and utterly captivating — like a moonlit poem trapped in plant form. Handle with care and mist with love.</p>
+      </div>
+      <figure class="image-container">
+        <img src="_MistyMidnight.jpg" alt="Ctenanthe Amagris silvery foliage">
+        <figcaption class="caption">Dark mode, always. Even in the rainforest.</figcaption>
+      </figure>
+      <div class="green-routine">
+        <h3>Green Routine</h3>
+        <ul>
+          <li>Light: Low to medium indirect. Think filtered forest floor, not sun-tanning on the balcony.</li>
+          <li>Water: Keep the soil consistently lightly moist — never soggy. She’s delicate, not dramatic.</li>
+          <li>Humidity: Craves it. Group her with friends, mist daily, or set up a pebble tray altar in her honor.</li>
+          <li>Feeding: Light snacks only — once a month during growing season.</li>
+          <li>Grooming: Gently wipe her leaves and talk softly. She likes attention, but on her terms.</li>
+        </ul>
+      </div>
+      <div class="drama-files">
+        <h3>The Drama Files</h3>
+        <div class="accordion">
+          <button aria-expanded="false" aria-controls="cm1">Q: The leaves are turning yellow — what does that mean?</button>
+          <div id="cm1" class="panel" aria-hidden="true"><p>A: Probably too much water or bad drainage. She likes balance, not wet socks. Check the pot and back off the watering.</p></div>
+          <button aria-expanded="false" aria-controls="cm2">Q: The tips of the leaves are dry and crispy — is that normal?</button>
+          <div id="cm2" class="panel" aria-hidden="true"><p>A: Very common in dry air. She’s craving mist or higher humidity — give her rainforest energy, not desert.</p></div>
+          <button aria-expanded="false" aria-controls="cm3">Q: Why are the leaves drooping like that?</button>
+          <div id="cm3" class="panel" aria-hidden="true"><p>A: She’s either thirsty or just woke up — she does fold her leaves at night, after all. Check the soil first.</p></div>
+          <button aria-expanded="false" aria-controls="cm4">Q: Why is it leaning toward the window?</button>
+          <div id="cm4" class="panel" aria-hidden="true"><p>A: She’s reaching for a moodier corner of the light. Rotate her now and then, but don’t toss her in full sun — she’ll ghost you.</p></div>
+          <button aria-expanded="false" aria-controls="cm5">Q: There are dark spots or patches — what’s going on?</button>
+          <div id="cm5" class="panel" aria-hidden="true"><p>A: Could be cold air, crispy vibes, or low humidity drama. Move her somewhere warmer and more humid — maybe put on some ambient synths too.</p></div>
+        </div>
+      </div>
+    </section>
   </main>
+
   <script>
     document.querySelectorAll('.accordion button').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -208,11 +339,7 @@
         const panel = document.getElementById(btn.getAttribute('aria-controls'));
         btn.setAttribute('aria-expanded', String(!expanded));
         panel.setAttribute('aria-hidden', String(expanded));
-        if (!expanded) {
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-        } else {
-          panel.style.maxHeight = null;
-        }
+        panel.style.maxHeight = expanded ? null : panel.scrollHeight + 'px';
       });
     });
   </script>

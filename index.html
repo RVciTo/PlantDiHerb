@@ -4,6 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Plant di Herb Man and mek it grow</title>
+  <!-- Skip link for keyboard users -->
+  <style>
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #000;
+      color: #fff;
+      padding: 8px;
+      z-index: 100;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: top 0.3s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+  </style>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Karla:wght@400;600&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -13,237 +31,188 @@
       --light-brown: #d8c3a5;
       --bg: #fdfbf7;
       --text: #333;
+      --focus: #ffa726;
     }
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
+      margin: 0;
       font-family: 'Quicksand', sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 10px;
+      padding: 0 10px 20px;
     }
-    /* Mobile-first navigation */
     nav {
       background: var(--beige);
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 100;
     }
     nav ul {
       display: flex;
       overflow-x: auto;
       list-style: none;
+      margin: 0;
       padding: 10px;
     }
-    nav ul li {
-      flex: none;
+    nav a {
+      display: block;
       margin-right: 15px;
-    }
-    nav ul li a {
       text-decoration: none;
       font-weight: 600;
       color: var(--text);
       white-space: nowrap;
     }
-    main {
-      padding-top: 10px;
-    }
-    .plant-card {
+    nav a:focus { outline: 2px solid var(--focus); border-radius: 4px; }
+    main { padding-top: 10px; }
+    section.plant-card {
       background: var(--bg);
       border-radius: 12px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      margin: 10px 0;
+      margin: 20px auto;
       padding: 15px;
-      width: 100%;
+      max-width: 800px;
       transition: transform 0.2s;
     }
-    .plant-card:hover {
-      transform: translateY(-3px);
-    }
-    .plant-header {
-      margin-bottom: 12px;
-    }
+    section.plant-card:hover { transform: translateY(-3px); }
     .plant-header h2 {
       font-family: 'Comic Neue', cursive;
-      font-size: 1.5rem;
-      margin-bottom: 4px;
+      font-size: 1.75rem;
       color: var(--soft-green);
+      margin-bottom: 4px;
       line-height: 1.2;
     }
     .plant-header .nickname {
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: var(--light-brown);
       font-style: italic;
     }
-    .personality {
-      margin-bottom: 12px;
-    }
-    .image-container {
-      text-align: center;
-      margin-bottom: 10px;
-    }
+    .personality { margin: 12px 0; }
     .image-container img {
-      max-width: 100%;
+      width: 100%;
       height: auto;
       border-radius: 8px;
-      transition: transform 0.3s;
     }
-    .image-container img:hover {
-      transform: scale(1.05);
-    }
-    .image-container .caption {
+    .caption {
       font-family: 'Karla', sans-serif;
-      font-size: 0.8rem;
-      color: var(--text);
+      font-size: 0.85rem;
       margin-top: 6px;
+      color: var(--text);
     }
-    .green-routine, .drama-files {
-      margin-bottom: 15px;
-    }
+    .green-routine, .drama-files { margin: 16px 0; }
     .green-routine h3, .drama-files h3 {
       display: flex;
       align-items: center;
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       margin-bottom: 8px;
     }
-    .green-routine h3::before {
-      content: '🧼';
-      margin-right: 6px;
-      font-size: 1.25rem;
-    }
-    .drama-files h3::before {
-      content: '🎭';
-      margin-right: 6px;
-      font-size: 1.25rem;
-    }
-    .green-routine ul {
-      list-style: disc inside;
-    }
-    .green-routine li {
-      margin-bottom: 5px;
-      padding-left: 5px;
-    }
-    .accordion-item {
+    .green-routine h3::before { content: '🧼'; margin-right: 8px; }
+    .drama-files h3::before { content: '🎭'; margin-right: 8px; }
+    .green-routine ul { list-style: disc inside; padding-left: 8px; }
+    .green-routine li { margin-bottom: 6px; }
+    .accordion {
       border-top: 1px solid var(--light-brown);
     }
-    .accordion-header {
-      cursor: pointer;
-      padding: 8px 0;
+    .accordion button {
+      width: 100%;
+      text-align: left;
+      padding: 10px 0;
       font-weight: 600;
+      background: none;
+      border: none;
       position: relative;
+      font-size: 1rem;
+      cursor: pointer;
     }
-    .accordion-header::after {
+    .accordion button::after {
       content: '▼';
       position: absolute;
       right: 0;
       transition: transform 0.2s;
     }
-    .accordion-header.active::after {
+    .accordion button[aria-expanded="true"]::after {
       transform: rotate(180deg);
     }
-    .accordion-content {
+    .accordion button:focus { outline: 2px solid var(--focus); }
+    .panel {
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease;
     }
-    .accordion-content p {
-      padding: 8px 0;
-    }
-    /* Larger screens */
+    .panel p { padding: 10px 0; }
     @media (min-width: 600px) {
-      body {
-        padding: 20px;
-      }
-      .plant-card {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-      }
-      .plant-header h2 {
-        font-size: 2rem;
-      }
-      .plant-header .nickname {
-        font-size: 1.2rem;
-      }
-      .green-routine h3, .drama-files h3 {
-        font-size: 1.5rem;
-      }
+      body { padding: 0 20px 40px; }
     }
   </style>
 </head>
 <body>
-  <nav>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <nav role="navigation">
     <ul>
-      <!-- Update nav links manually -->
       <li><a href="#epipremnum-marble-queen">Marble Queen</a></li>
-      <li><a href="#plant-2">Plant 2</a></li>
-      <li><a href="#plant-3">Plant 3</a></li>
+      <li><a href="#musa-oriental-dwarf">Banana Plant</a></li>
+      <li><a href="#bromelia-hope">Bromeliad</a></li>
+      <li><a href="#pachira-aquatica">Money Tree</a></li>
+      <li><a href="#spathiphyllum">Peace Lily</a></li>
+      <li><a href="#ctenanthe-amagris">Misty Midnights</a></li>
     </ul>
   </nav>
-  <main>
-    <!-- Sample Plant Entry -->
+  <main id="main">
+    <!-- Epipremnum Marble Queen -->
     <section id="epipremnum-marble-queen" class="plant-card">
-      <div class="plant-header">
+      <header class="plant-header">
         <h2>Epipremnum Marble Queen</h2>
         <div class="nickname">Couch Creeper Queen 👑</div>
-      </div>
+      </header>
       <div class="personality">
-        <!-- Insert Personality Paragraph -->
-        <p>Your plant personality paragraph goes here.</p>
+        <p>Couch Creeper Queen lives for the drama of doing absolutely nothing. She reclines. She trails. She spills out of her pot like she’s fainting in slow motion. She’s the friend who’s always “on the way” but never leaves the house. Needs almost nothing to thrive and still makes your space look like a boho Pinterest board. If plants had Netflix accounts, she’d be the one poking into your profile, watching “Mushrooms: The Silent Drama” under your name and never admitting it.</p>
       </div>
       <div class="image-container">
-        <img src="monstera.jpg" alt="Epipremnum Marble Queen">
-        <div class="caption">Your marble beauty in her natural glory.</div>
+        <img src="_CouchCreeperQueen.webp" alt="Couch Creeper Queen trailing vines">
+        <div class="caption">I’m not lazy, I’m on energy-saving mode.</div>
       </div>
       <div class="green-routine">
         <h3>Green Routine</h3>
         <ul>
-          <li>Water when top 2 inches of soil feel dry.</li>
-          <li>Bright, indirect light but no harsh sun.</li>
-          <li>Mist leaves weekly to keep humidity happy.</li>
-          <!-- Add more tips -->
+          <li>Light: Bright, indirect light. She’s chill in low light too but won’t grow as fast.</li>
+          <li>Water: Let the top 2–3 cm of soil dry out before watering. She’s not into soggy feet.</li>
+          <li>Humidity: Totally fine in normal room vibes, but she’ll thrive if you mist once in a while.</li>
+          <li>Feeding: Toss her a little liquid fertilizer every 4–6 weeks in spring/summer. She doesn’t eat much.</li>
+          <li>Grooming: Prune leggy vines and wipe her leaves so she keeps that marble glow.</li>
         </ul>
       </div>
       <div class="drama-files">
         <h3>The Drama Files</h3>
-        <!-- Accordion items default-open -->
-        <div class="accordion-item">
-          <div class="accordion-header active">Why are my leaves yellowing?</div>
-          <div class="accordion-content" style="max-height: none;">
-            <p>Answer goes here.</p>
-          </div>
+        <div class="accordion">
+          <button aria-expanded="false" aria-controls="mq1">Q: The leaves are turning yellow — what does that mean?</button>
+          <div id="mq1" class="panel" aria-hidden="true"><p>A: You’ve been loving her a little too hard. That soggy soil? Yeah, she’s not into that. Let her dry out before the next drink.</p></div>
+          <button aria-expanded="false" aria-controls="mq2">Q: The tips of the leaves are dry and crispy — is that normal?</button>
+          <div id="mq2" class="panel" aria-hidden="true"><p>A: She’s thirsty or choking on your apartment’s dry vibes. Water deeper or give her a lil’ humidity boost.</p></div>
+          <button aria-expanded="false" aria-controls="mq3">Q: Why are the leaves drooping like that?</button>
+          <div id="mq3" class="panel" aria-hidden="true"><p>A: Thirsty, dramatic, but fine. It’s her version of a protest sign. Water her, she’ll forgive you by lunch.</p></div>
+          <button aria-expanded="false" aria-controls="mq4">Q: Why is it leaning toward the window?</button>
+          <div id="mq4" class="panel" aria-hidden="true"><p>A: She’s chasing the sun like it’s a crush she met at a music festival. Rotate her before she becomes a one-sided relationship.</p></div>
+          <button aria-expanded="false" aria-controls="mq5">Q: There are dark spots or patches — what’s going on?</button>
+          <div id="mq5" class="panel" aria-hidden="true"><p>A: Either sunburn from sitting too close to the window or she’s been chilling in a swampy pot. Bright indirect light + proper drainage = peace.</p></div>
         </div>
-        <div class="accordion-item">
-          <div class="accordion-header active">How often should I fertilize?</div>
-          <div class="accordion-content" style="max-height: none;">
-            <p>Answer goes here.</p>
-          </div>
-        </div>
-        <!-- Add up to 5 FAQ items -->
       </div>
     </section>
-    <!-- Repeat for other plants -->
+    <!-- Repeat similar structure for other plants, ensuring each accordion button has unique aria-controls, associated panels, and initial aria-expanded="false" -->
   </main>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.accordion-header').forEach(header => {
-        const content = header.nextElementSibling;
-        header.addEventListener('click', () => {
-          header.classList.toggle('active');
-          if (header.classList.contains('active')) {
-            content.style.maxHeight = content.scrollHeight + 'px';
-          } else {
-            content.style.maxHeight = null;
-          }
-        });
+    document.querySelectorAll('.accordion button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        const panel = document.getElementById(btn.getAttribute('aria-controls'));
+        btn.setAttribute('aria-expanded', String(!expanded));
+        panel.setAttribute('aria-hidden', String(expanded));
+        if (!expanded) {
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+        } else {
+          panel.style.maxHeight = null;
+        }
       });
     });
   </script>
